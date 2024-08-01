@@ -14,3 +14,9 @@ const saveSession = async (req, res) => {
     res.status(201).json(session);
 };
 
+const getSessions = async (req, res) => {
+    const sessions = await Session.find({ userId: req.user._id }).sort({ date: -1 });
+    res.json(sessions);
+}
+
+module.exports = { saveSession, getSessions };
