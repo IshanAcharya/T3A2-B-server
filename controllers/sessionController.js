@@ -5,7 +5,7 @@ const saveSession = async (req, res) => {
 
     try {
         const session = await Session.create({
-            userId: req.user._id,
+            userID: req.user._id,
             wpm,
             accuracy,
             errors,
@@ -20,7 +20,7 @@ const saveSession = async (req, res) => {
 
 const getSessions = async (req, res) => {
     try {
-        const sessions = await Session.find({ userId: req.user._id }).sort({ date: -1 });
+        const sessions = await Session.find({ userID: req.user._id }).sort({ date: -1 });
         res.json(sessions);
     } catch (error) {
         res.status(400).json({ message: 'Failed to retrieve sessions', error});
