@@ -1,4 +1,4 @@
-const Session = require('../models/Session');
+const Session = require('../models/session');
 
 const saveSession = async (req, res) => {
     const { wpm, accuracy, errors, difficulty } = req.body;
