@@ -1,4 +1,9 @@
 const User = require('../models/user');
+const jwt = require('jsonwebtoken');
+
+const generateToken = (id) => {
+    return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+};
 
 const getProfile = async (req, res) => {
     const user = await User.findById(req.user._id).select('-password');
@@ -19,7 +24,7 @@ const updateProfile = async (req, res) => {
             _id: updatedUser._id,
             email: updatedUser.email,
             token: generateToken(updatedUser._id),
-        })
+        });
     } else {
         res.status(404).json({ message: 'User not found' });
     }
