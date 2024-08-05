@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const Session = require('../models/session');
 const jwt = require('jsonwebtoken');
 
 const generateToken = (id) => {
@@ -30,5 +31,19 @@ const updateProfile = async (req, res) => {
     }
 };
 
+const deleteUserAndSessions = async (req, res) => {
+    try {
+        const userId = req.user.id;
 
-module.exports = { getProfile, updateProfile };
+        await Session.deleteMany({ userID: userId });
+
+        await User.findByIdAndDelete(userId);
+
+        res.status(200).json({ message: 'User and all sessions deleted successfully' });
+    } catch (error) { 
+        res.status(500).json({ message: 'Failed to delete user', error });
+    }
+};
+
+
+module.exports = { getProfile, updateProfile, deleteUserAndSessions };
