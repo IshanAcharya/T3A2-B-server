@@ -2,12 +2,14 @@ require('dotenv').config();
 const { registerUser, loginUser } = require('../controllers/authController');
 const User = require('../models/user');
 
+// Mock user model from database
 jest.mock('../models/user');
 
 describe('Auth Controller Unit Tests', () => {
   let mockRequest;
   let mockResponse;
 
+  // Setup mock requests before each test
   beforeEach(() => {
     mockRequest = {
       body: {}
